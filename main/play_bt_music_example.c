@@ -37,6 +37,7 @@ void app_main(void)
         err = nvs_flash_init();
     }
 
+    // Powers the DAC
     gpio_pad_select_gpio(33);
     gpio_set_direction(33, GPIO_MODE_OUTPUT);
     gpio_set_level(33,1);
@@ -59,7 +60,7 @@ void app_main(void)
     audio_pipeline_cfg_t pipeline_cfg = DEFAULT_AUDIO_PIPELINE_CONFIG();
     pipeline = audio_pipeline_init(&pipeline_cfg);
 
-    ESP_LOGI(TAG, "[ 3.01 ] Create equalizer - MEOW");
+    ESP_LOGI(TAG, "[ 3.01 ] Create equalizer");
     equalizer_cfg_t eq_cfg = DEFAULT_EQUALIZER_CONFIG();
     int set_gain[] = { 5, 2.5, 1, 0, 0, 0, 0, 0, 0, 0, 0, 5, 2.5, 1, 0, 0, 0, 0, 0, 0};
     eq_cfg.set_gain =
