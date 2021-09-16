@@ -47,7 +47,7 @@ void app_main(void)
 
     ESP_LOGI(TAG, "[ 1 ] Create Bluetooth service");
     bluetooth_service_cfg_t bt_cfg = {
-        .device_name = "ESP-ADF-SPEAKER",
+        .device_name = "MAKERSPACE-SPEAKER",
         .mode = BLUETOOTH_A2DP_SINK,
     };
     bluetooth_service_start(&bt_cfg);
@@ -62,7 +62,7 @@ void app_main(void)
 
     ESP_LOGI(TAG, "[ 3.01 ] Create equalizer");
     equalizer_cfg_t eq_cfg = DEFAULT_EQUALIZER_CONFIG();
-    int set_gain[] = { 5, 2.5, 1, 0, 0, 0, 0, 0, 0, 0, 0, 5, 2.5, 1, 0, 0, 0, 0, 0, 0};
+    int set_gain[] = { 5, 2.5, 1, 0, 0, 0, 0, 0, 0, 0, 5, 2.5, 1, 0, 0, 0, 0, 0, 0, 0};
     eq_cfg.set_gain =
         set_gain; // The size of gain array should be the multiplication of NUMBER_BAND and number channels of audio stream data. The minimum of gain is -13 dB.
     equalizer = equalizer_init(&eq_cfg);
@@ -160,6 +160,8 @@ void app_main(void)
             && msg.source == (void *)bt_periph) {
             if (msg.cmd == PERIPH_BLUETOOTH_DISCONNECTED) {
                 ESP_LOGW(TAG, "[ * ] Bluetooth disconnected");
+                ESP_LOGW(TAG, "[ * ] ESP RESTARTING");
+                esp_restart();
                 break;
             }
         }
